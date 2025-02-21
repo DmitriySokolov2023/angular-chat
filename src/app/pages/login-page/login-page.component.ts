@@ -15,16 +15,28 @@ import { LoginService } from '../../services/login.service';
   styleUrl: './login-page.component.scss',
 })
 export class LoginPageComponent {
-  constructor(private loginService: LoginService, private router: Router) {}
+  private channel: BroadcastChannel;
   form = new FormGroup({
     username: new FormControl(null, Validators.required),
   });
-  validations = '';
+  noValid = '';
+
+  constructor(private loginService: LoginService, private router: Router) {
+    this.channel = new BroadcastChannel('login_channel');
+  }
+
+  ngOnInit(): void {
+    this.channel.addEventListener('message', () => {
+      this.router.navigate(['/chat']);
+    });
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.loginService.login(this.form.value?.username || 'guest');
-      this.validations = '';
+      this.noValid = '';
+      this.channel.postMessage('login_channel');
       this.router.navigate(['/chat']);
-    } else this.validations = 'Введите имя пользователя';
+    } else this.noValid = 'Введите имя пользователя';
   }
 }

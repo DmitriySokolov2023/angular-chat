@@ -10,70 +10,31 @@
     <p class="chat__logout" (click)="logout()">Logout</p>
   </div>
   <div class="chat__content">
+    @for (message of messages; track $index) {
     <div class="chat__message">
-      <div class="chat__message-username pr">dmitriy0209</div>
+      <div class="chat__message-username pr">{{ message.user }}</div>
       <div class="chat__message-info info">
-        <div class="info__message">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reprehenderit, laudantium, blanditiis voluptate nisi sapiente odio
-          quam nemo praesentium aliquid maxime minima accusamus ut pariatur
-          distinctio sequi optio autem dolores veritatis? Perspiciatis dolor
-        </div>
+        <div class="info__message">{{ message.message }}</div>
         <div class="info__time">22:02</div>
       </div>
     </div>
-
-    <div class="chat__message">
-      <div class="chat__message-username pr">dmitriy0209</div>
-      <div class="chat__message-info info">
-        <div class="info__message">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reprehenderit, laudantium, blanditiis voluptate nisi sapiente odio
-          quam nemo praesentium aliquid maxime minima accusamus ut pariatur
-          distinctio sequi optio autem dolores veritatis? Perspiciatis dolor
-        </div>
-        <div class="info__time">22:02</div>
-      </div>
-    </div>
-    <div class="chat__message">
-      <div class="chat__message-username pr">dmitriy0209</div>
-      <div class="chat__message-info info">
-        <div class="info__message">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reprehenderit, laudantium, blanditiis voluptate nisi sapiente odio
-          quam nemo praesentium aliquid maxime minima accusamus ut pariatur
-          distinctio sequi optio autem dolores veritatis? Perspiciatis dolor
-        </div>
-        <div class="info__time">22:02</div>
-      </div>
-    </div>
-    <div class="chat__message">
-      <div class="chat__message-username pr">dmitriy0209</div>
-      <div class="chat__message-info info">
-        <div class="info__message">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reprehenderit, laudantium, blanditiis voluptate nisi sapiente odio
-          quam nemo praesentium aliquid maxime minima accusamus ut pariatur
-          distinctio sequi optio autem dolores veritatis? Perspiciatis dolor
-        </div>
-        <div class="info__time">22:02</div>
-      </div>
-    </div>
-    <div class="chat__message">
-      <div class="chat__message-username pr">dmitriy0209</div>
-      <div class="chat__message-info info">
-        <div class="info__message">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reprehenderit, laudantium, blanditiis voluptate nisi sapiente odio
-          quam nemo praesentium aliquid maxime minima accusamus ut pariatur
-          distinctio sequi optio autem dolores veritatis? Perspiciatis dolor
-        </div>
-        <div class="info__time">22:02</div>
-      </div>
-    </div>
+    } @if (messages.length > 0) {
+    <p class="clear" (click)="clearMessage()">Очистка</p>
+    }@else {
+    <h2>Список сообщений пуст</h2>
+    }
   </div>
-  <form action="" class="app-form">
-    <input type="text" class="input" placeholder="Введите сообщение" />
-    <button class="btn">Отправить</button>
+
+  <form action="" class="app-form" [formGroup]="form">
+    <label style="color: red"
+      >{{ noValid }}
+      <input
+        type="text"
+        class="input"
+        placeholder="Введите сообщение"
+        formControlName="message"
+        (keydown.enter)="onSubmit()"
+    /></label>
+    <button class="btn" (click)="onSubmit()" type="button">Отправить</button>
   </form>
 </div>

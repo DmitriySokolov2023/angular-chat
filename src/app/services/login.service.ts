@@ -6,9 +6,7 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
   constructor(private router: Router) {}
-  getUserName() {
-    return localStorage.getItem('username') || 'guest';
-  }
+
   login(username: string) {
     localStorage.setItem('username', username);
   }
