@@ -1,0 +1,21 @@
+<div class="layout">
+  <div class="layout__header">
+    <img src="chat-icon.ico" alt="" width="50px" />
+    <h1>My chat</h1>
+  </div>
+  <div class="layout__content">
+    <h2>Авторизуйтесь для использования чата</h2>
+  </div>
+  <form action="" class="app-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label style="color: red"
+      >{{ validations
+      }}<input
+        formControlName="username"
+        type="text"
+        class="input"
+        placeholder="Введите имя"
+    /></label>
+
+    <button class="btn" type="submit">Войти</button>
+  </form>
+</div>
